@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Island Pond Cell Tower</title>
+  <script>
+    navigator.serviceWorker.register('sw.js');
+  </script>
+  <link rel="stylesheet" href="/css/leaflet.css" />
+  <link rel="stylesheet" href="/css/map.css" />
+  <script src="/js/leaflet.js"></script>
+  <script src="/js/TileLayer.Esri.js"></script>
+</head>
+<body>
+  <h2 class="page-header">Island Pond Cell Tower</h2>
+  <h3 class="page-sub-header">Balloon Test Results</h3>
+  <p>
+    Go to 
+    <a href="/intro.html"><button>Intro</button></a>
+    <a href="/"><button>Survey</button></a>
+  </p>  
+  <div id="no-connection" class="card" style="display: none">
+    <p>No internet connection available.  You must connect to the internet to see the map.</p>
+    <p><a href="/map.html"><button>Reload</button></a></p>
+  </div>
+  <div id="map" style="display: none"></div>
+</body>
+<script src="/js/map.js" type="module"></script>
+</html>

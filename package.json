@@ -1,0 +1,25 @@
+{
+  "name": "balloon-test",
+  "version": "1.0.0",
+  "engines": {
+    "node": ">=20.15.0 <21.0.0"
+  },
+  "type": "module",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Peter Girard",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/datastore": "^9.1.0",
+    "@google-cloud/storage": "^7.11.2",
+    "body-parser": "^1.20.2",
+    "compression": "^1.7.4",
+    "express": "^4.19.2",
+    "express-async-errors": "^3.1.1",
+    "express-enforces-ssl": "^1.1.0",
+    "helmet": "^7.1.0"
+  }
+}

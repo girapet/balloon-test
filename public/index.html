@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Island Pond Cell Tower</title>
+  <script>
+    navigator.serviceWorker.register('sw.js');
+  </script>
+  <link rel="stylesheet" href="/css/index.css" />
+  <script>
+    if (!window.localStorage.getItem('saw-intro')) {
+      window.location.href = '/intro.html';
+    }
+  </script>
+</head>
+<body>
+  <h2 class="page-header">Island Pond Cell Tower</h2>
+  <h3 class="page-sub-header">Balloon Test Survey</h3>
+  <p>
+    Go to 
+    <a href="/intro.html"><button>Intro</button></a>
+    <a href="/map.html"><button>Map</button></a>
+  </p>
+  <div id="error" class="card" style="display: none">
+    <p id="error-message"></p>
+    <p><a href="/"><button>Reload</button></a></p>
+  </div>
+  <div id="survey" class="card" style="display: none">
+    <p>Your name<br/>
+      <input type="text" id="user-name" />
+    </p>
+    <p>Can you see the balloon from your current location?</p>
+    <p>
+      <input type="radio" id="is-visible" name="visibility" />
+      <label for="is-visible">Yes</label>
+    </p>
+    <p>
+      <input type="radio" id="is-not-visible" name="visibility" checked />
+      <label for="is-not-visible">No</label>
+    </p>
+    <p>
+      <button id="picture-start">Take a Picture</button> (optional)<br/><br/>
+      <canvas id="picture-canvas" style="display: none"></canvas>
+    </p>
+    <p>
+      <button id="submit">Submit</button>
+      <a href="/"><button>Reset</button></a>
+    </p>
+  </div>
+  <p id="queue-status"></p>
+  <dialog id="picture-dialog">
+    <form>
+      <video id="picture-video"></video>
+      <p>
+        <button id="picture-take">Take Picture</button>
+        <button value="cancel" formmethod="dialog">Cancel</button>
+      </p>
+    </form>
+  </dialog>
+  <dialog id="success-dialog">
+    <form>
+      <p>Your survey submission was successful.</p>
+      <button value="cancel" formmethod="dialog">OK</button>
+    </form>
+  </dialog>
+</body>
+<script src="/js/index.js" type="module"></script>
+</html>

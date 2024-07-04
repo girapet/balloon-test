@@ -1,0 +1,31 @@
+@import "common.css";
+
+#map {
+  position: absolute;
+  left: 0px;
+  top: 140px;
+  right: 0px;
+  bottom: 0px;
+  background-color: #606060;
+}
+
+.icon-visible, .icon-not-visible {
+  border-radius: 12px;
+  border: solid 1px white;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 13pt;
+}
+
+.icon-visible {
+  background-color: rgb(255,96,0);
+}
+
+.icon-not-visible {
+  background-color: blue;
+}
+
+img.leaflet-tile, img.leaflet-marker-icon, img.leaflet-marker-shadow {
+  mix-blend-mode: plus-lighter;
+}
