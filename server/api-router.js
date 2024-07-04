@@ -8,6 +8,10 @@ import imageStore from './image-store.js';
 
 const router = express.Router();
 
+router.get('/check', async (req, res) => {
+  res.sendStatus(200);
+});
+
 router.post('/add', async (req, res) => {
   const submission = req.body;
   submission.id = crypto.randomUUID();

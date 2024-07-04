@@ -1,4 +1,0 @@
-A HEAD request is sent to this file when checking for an active network connection.
-See js/network.js.
-
-43.06595 -72.09075
