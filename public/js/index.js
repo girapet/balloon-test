@@ -11,6 +11,7 @@ const pictureVideo = dom.get('picture-video');
 const pictureCanvas = dom.get('picture-canvas');
 const pictureContext = pictureCanvas.getContext('2d');
 const successDialog = dom.get('success-dialog');
+const submitButton = dom.get('submit');
 const queueStatus = dom.get('queue-status');
 
 let videoStreaming = false;
@@ -157,13 +158,19 @@ const sendSubmissions = () => {
 
 const initialize = () => {
   userNameInput.value = window.localStorage.getItem('user-name');
+  submitButton.disabled = !userNameInput.value;
+
   dom.style(dom.get('survey'), { display: 'block' });
 
-  dom.on(userNameInput, 'keyup', () => window.localStorage.setItem('user-name', userNameInput.value));
+  dom.on(userNameInput, 'keyup', () => {
+    submitButton.disabled = !userNameInput.value;
+    window.localStorage.setItem('user-name', userNameInput.value);
+  });
+
   dom.on(dom.get('picture-start'), 'click', openPictureDialog);
   dom.on(pictureVideo, 'canplay', startVideo)
   dom.on(dom.get('picture-take'), 'click', takePicture);
-  dom.on(dom.get('submit'), 'click', submitSurvey);
+  dom.on(submitButton, 'click', submitSurvey);
   dom.on(pictureDialog, 'click', (event) => outsideDialogClose(pictureDialog, event));
   dom.on(successDialog, 'click', (event) => outsideDialogClose(successDialog, event));
 };
