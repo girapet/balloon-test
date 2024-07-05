@@ -8,8 +8,23 @@ import imageStore from './image-store.js';
 
 const router = express.Router();
 
+const speedBuffer = Buffer.alloc(1024 * 128);
+crypto.randomFillSync(speedBuffer);
+
 router.get('/check', async (req, res) => {
   res.sendStatus(200);
+});
+
+const nocache = (req, res, next) => {
+  res.setHeader("Surrogate-Control", "no-store");
+  res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+  res.setHeader("Expires", "0");
+  next();
+};
+
+router.get('/speed', nocache, async (req, res) => {
+  res.contentType = 'application/octet-stream';
+  res.send(speedBuffer);
 });
 
 router.post('/add', async (req, res) => {

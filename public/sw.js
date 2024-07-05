@@ -1,4 +1,4 @@
-const VERSION = '1.0.2';
+const VERSION = '1.0.5';
 
 const precacheUrls = [
   '/css/common.css',

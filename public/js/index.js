@@ -3,6 +3,8 @@ import surveyArea from './survey-area.js';
 import dataStore from './data-store.js';
 import network from './network.js';
 
+const MINIMUM_NETWORK_SPEED = 0.25;  // mb/sec
+
 const userNameInput = dom.get('user-name');
 const isVisibleRadio = dom.get('is-visible');
 const isNotVisibleRadio = dom.get('is-not-visible');
@@ -49,7 +51,12 @@ const outsideDialogClose = (dialog, event) => {
 
 const openPictureDialog = () => {
   if (!videoStreaming) {
-    navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+    navigator.mediaDevices.getUserMedia({ 
+      video: { 
+        facingMode: { exact: 'environment' }
+      }, 
+      audio: false }
+    )
     .then((stream) => {
       pictureVideo.srcObject = stream;
       pictureVideo.play();
@@ -90,14 +97,14 @@ const blobToBase64 = (blob) => {
 };
 
 const queueSubmission = async (submission) => {
-  await dataStore.add(submission);
-  sendSubmissions();
-
   dom.style(pictureCanvas, { display: 'none' });
   isVisibleRadio.checked = false;
   isNotVisibleRadio.checked = true;
   
   successDialog.showModal();
+  
+  await dataStore.add(submission);
+  sendSubmissions();
 };
 
 const submitSurvey = (event) => {
@@ -127,7 +134,7 @@ const submitSurvey = (event) => {
     else {
       await queueSubmission(submission);
     }
-  });
+  }, () => {}, { enableHighAccuracy: true });
 
   event.preventDefault();
 };
@@ -142,9 +149,9 @@ const sendSubmissions = () => {
     const count = await dataStore.count();
 
     if (count) {
-      const connected = await network.isAvailable();
+      const speed = await network.speed();
 
-      if (!connected) {
+      if (speed < MINIMUM_NETWORK_SPEED) {
         queueStatus.innerText = `${count} submission${count > 1 ? 's' : ''} queued, waiting for an internet connection`;
         sendHandle = setTimeout(sendSubmissions, 10000);
         return;
